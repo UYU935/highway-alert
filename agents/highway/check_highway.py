@@ -129,7 +129,10 @@ def send_discord(road_name: str, info: dict) -> None:
     req = urllib.request.Request(
         DISCORD_WEBHOOK_URL,
         data=payload,
-        headers={"Content-Type": "application/json"},
+        headers={
+            "Content-Type": "application/json",
+            "User-Agent": "DiscordBot (https://github.com/UYU935/highway-alert, 1.0)",
+        },
         method="POST",
     )
     try:
