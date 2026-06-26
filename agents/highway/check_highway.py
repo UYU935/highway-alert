@@ -14,7 +14,7 @@ from datetime import datetime, timezone, timedelta
 from pathlib import Path
 
 # ─── 設定 ──────────────────────────────────────────────────────────────
-DISCORD_WEBHOOK_URL = os.environ["DISCORD_WEBHOOK_URL"]
+DISCORD_WEBHOOK_URL = os.environ["DISCORD_WEBHOOK_URL"].strip()
 
 STATE_FILE = Path(os.environ.get("STATE_FILE", "state_highway.json"))
 JST = timezone(timedelta(hours=9))
