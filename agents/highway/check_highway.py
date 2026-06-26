@@ -26,9 +26,12 @@ IHIGHWAY_TRAFFIC_URL = "https://ihighway.jp/datas/json/traffic.json"
 TARGET_AREA = "area07"
 
 # 監視対象路線名（iHighway の roadName と一致させる）
-TARGET_ROADS = {"中国道", "山陽道"}
+# 広島〜三次の通勤ルートに関係する路線
+TARGET_ROADS = {"中国道", "山陽道", "広島道"}
 
 # 対象区間キーワード（広島〜三次間に関係するIC・JCT名）
+# 広島道: 広島JCT ↔ 広島北IC
+# 中国道: 広島北IC ↔ 三次東JCT（千代田JCT, 高田IC, 甲立IC, 吉田掛合IC 経由）
 TARGET_IC_KEYWORDS = [
     "広島",
     "三次",
