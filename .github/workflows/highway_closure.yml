@@ -2,15 +2,14 @@ name: Highway Closure Agent
 
 on:
   schedule:
-    # 30分おきに実行（UTC）
     - cron: "*/30 * * * *"
-  workflow_dispatch: # 手動実行（テスト用）
+  workflow_dispatch:
 
 jobs:
   check-highway:
     runs-on: ubuntu-latest
     permissions:
-      contents: write # state_highway.json をコミットするため
+      contents: write
 
     steps:
       - name: Checkout repository
@@ -25,12 +24,12 @@ jobs:
         env:
           DISCORD_WEBHOOK_URL: ${{ secrets.HIGHWAY_DISCORD_WEBHOOK_URL }}
         run: |
-          python -c "
+          python - <<'EOF'
 import os
 url = os.environ.get('DISCORD_WEBHOOK_URL', '')
-print(f'URL length: {len(url)}')
-print(f'URL prefix: {url[:40]}...' if len(url) > 40 else f'URL: {repr(url)}')
-"
+print('URL length:', len(url))
+print('URL prefix:', url[:50])
+EOF
 
       - name: Run highway closure check
         env:
