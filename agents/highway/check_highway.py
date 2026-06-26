@@ -132,9 +132,13 @@ def send_discord(road_name: str, info: dict) -> None:
         headers={"Content-Type": "application/json"},
         method="POST",
     )
-    with urllib.request.urlopen(req, timeout=10) as res:
-        if res.status not in (200, 204):
-            raise RuntimeError(f"Discord webhook 失敗: {res.status}")
+    try:
+        with urllib.request.urlopen(req, timeout=10) as res:
+            if res.status not in (200, 204):
+                raise RuntimeError(f"Discord webhook 失敗: {res.status}")
+    except urllib.error.HTTPError as e:
+        body = e.read().decode("utf-8", errors="replace")
+        raise RuntimeError(f"Discord webhook 失敗: HTTP {e.code} - {body}")
 
 
 # ─── メイン処理 ────────────────────────────────────────────────────────
