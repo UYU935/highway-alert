@@ -20,24 +20,6 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Debug webhook URL
-        env:
-          DISCORD_WEBHOOK_URL: ${{ secrets.HIGHWAY_DISCORD_WEBHOOK_URL }}
-        run: |
-          echo "URL length: ${#DISCORD_WEBHOOK_URL}"
-          echo "URL prefix: ${DISCORD_WEBHOOK_URL:0:50}"
-
-      - name: Test webhook with curl
-        env:
-          DISCORD_WEBHOOK_URL: ${{ secrets.HIGHWAY_DISCORD_WEBHOOK_URL }}
-        run: |
-          curl -s -o /tmp/discord_resp.txt -w "HTTP_STATUS:%{http_code}" \
-            -H "Content-Type: application/json" \
-            -d '{"content":"test"}' \
-            "$DISCORD_WEBHOOK_URL" | tee /tmp/curl_result.txt
-          echo ""
-          cat /tmp/discord_resp.txt
-
       - name: Run highway closure check
         env:
           DISCORD_WEBHOOK_URL: ${{ secrets.HIGHWAY_DISCORD_WEBHOOK_URL }}
