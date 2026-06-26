@@ -21,6 +21,17 @@ jobs:
         with:
           python-version: "3.12"
 
+      - name: Debug webhook URL
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.HIGHWAY_DISCORD_WEBHOOK_URL }}
+        run: |
+          python -c "
+import os
+url = os.environ.get('DISCORD_WEBHOOK_URL', '')
+print(f'URL length: {len(url)}')
+print(f'URL prefix: {url[:40]}...' if len(url) > 40 else f'URL: {repr(url)}')
+"
+
       - name: Run highway closure check
         env:
           DISCORD_WEBHOOK_URL: ${{ secrets.HIGHWAY_DISCORD_WEBHOOK_URL }}
