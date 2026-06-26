@@ -24,12 +24,8 @@ jobs:
         env:
           DISCORD_WEBHOOK_URL: ${{ secrets.HIGHWAY_DISCORD_WEBHOOK_URL }}
         run: |
-          python - <<'EOF'
-import os
-url = os.environ.get('DISCORD_WEBHOOK_URL', '')
-print('URL length:', len(url))
-print('URL prefix:', url[:50])
-EOF
+          echo "URL length: ${#DISCORD_WEBHOOK_URL}"
+          echo "URL prefix: ${DISCORD_WEBHOOK_URL:0:50}"
 
       - name: Run highway closure check
         env:
